@@ -11,6 +11,11 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  "plugin:simple-import-sort/recommended",
 ];
 
-export default eslintConfig;
+export default {
+  ...eslintConfig,
+  plguins: ["simple-import-sort"],
+  rules: { "simple-import-sort/imports": "error" },
+};
