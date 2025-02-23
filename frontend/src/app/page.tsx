@@ -1,5 +1,8 @@
-import { Header } from "@/components/Header/Header";
+"use client";
 
-export default function Home() {
-  return <Header />;
+import { ThemeProvider } from "@mui/material";
+import theme from "@/themes/theme";
+
+export default function Home({ children }: { children: React.ReactNode }) {
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 }
