@@ -39,3 +39,8 @@ export const Value = styled("p")`
 export const Description = styled("p")`
   word-break: break-word;
 `;
+
+export const EmptyList = styled("h2")`
+  text-align: center;
+  padding: ${({ theme }) => theme.spacing(10, 0)};
+`;
