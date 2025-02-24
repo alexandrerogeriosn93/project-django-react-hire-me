@@ -9,7 +9,7 @@ export default function Home({ children }: { children: React.ReactNode }) {
   const professionals: Professional[] = [
     {
       id: 1,
-      name: "Alexandre",
+      name: "Alexandre Rogério",
       description: "Tecnólogo em Sistemas para Internet",
       value_per_hour: 100,
       photo: "https://github.com/alexandrerogeriosn93.png",
@@ -17,15 +17,29 @@ export default function Home({ children }: { children: React.ReactNode }) {
     {
       id: 2,
       name: "Django",
-      description: "Tecnologia para o desenvolvimento web",
+      description: "Tecnologia para o desenvolvimento backend",
       value_per_hour: 300,
       photo: "https://github.com/django.png",
+    },
+    {
+      id: 3,
+      name: "React",
+      description: "Tecnologia para o desenvolvimento frontend",
+      value_per_hour: 500,
+      photo: "https://github.com/react.png",
+    },
+    {
+      id: 4,
+      name: "Python",
+      description: "Linguagem de programação",
+      value_per_hour: 120,
+      photo: "https://github.com/python.png",
     },
   ];
 
   return (
     <ThemeProvider theme={theme}>
-      <List></List>
+      <List professionals={professionals}></List>
       {children}
     </ThemeProvider>
   );

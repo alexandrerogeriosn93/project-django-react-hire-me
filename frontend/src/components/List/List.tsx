@@ -1,3 +1,4 @@
+import { Professional } from "@/entities/professional";
 import {
   Description,
   Informations,
@@ -8,25 +9,30 @@ import {
   Value,
 } from "./List.style";
 
-export const List = () => {
+interface PropsList {
+  professionals: Professional[];
+}
+
+export const List = (props: PropsList) => {
   return (
     <ListStyled>
-      <ListItem>
-        <Photo src="https://github.com/alexandrerogeriosn93.png"></Photo>
-        <Informations>
-          <Name>Alexandre Rogério</Name>
-          <Value>R$100.00 por hora</Value>
-          <Description>Tecnólogo em Sistemas para Internet</Description>
-        </Informations>
-      </ListItem>
-      <ListItem>
-        <Photo src="https://github.com/django.png"></Photo>
-        <Informations>
-          <Name>Alexandre Rogério Silva Nunes</Name>
-          <Value>R$120.00 por hora</Value>
-          <Description>Tecnólogo em Sistemas para Internet</Description>
-        </Informations>
-      </ListItem>
+      {props.professionals.map((professional) => (
+        <ListItem key={professional.id}>
+          <Photo src={professional.photo}></Photo>
+          <Informations>
+            <Name>{professional.name}</Name>
+            <Value>
+              {professional.value_per_hour.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+                style: "currency",
+                currency: "BRL",
+              })}{" "}
+              por hora
+            </Value>
+            <Description>{professional.description}</Description>
+          </Informations>
+        </ListItem>
+      ))}
     </ListStyled>
   );
 };
