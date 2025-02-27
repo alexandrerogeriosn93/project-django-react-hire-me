@@ -38,7 +38,7 @@ export const List = (props: PropsList) => {
           ))}
         </ListStyled>
       ) : (
-        <EmptyList>Não já profissionais cadastrados</EmptyList>
+        <EmptyList>Não há profissionais cadastrados</EmptyList>
       )}
     </div>
   );
