@@ -21,12 +21,6 @@ class RegisterJobAPI(APIView):
         professional = get_object_or_404(Professional, id=id)
         seralizer = RegisterJobSerializer(data=request.data)
 
-        # if seralizer.is_valid():
-        #     job = Job(
-        #         name=seralizer.validate_data.get("name"),
-        #         email=seralizer.validate_data.get("email"),
-        #     )
-
         if not seralizer.is_valid():
             return Response(seralizer.errors, status=HTTP_400_BAD_REQUEST)
 
