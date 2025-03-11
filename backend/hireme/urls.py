@@ -17,9 +17,10 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from myjob.views import ProfessionalAPI
+from myjob.views import ProfessionalAPI, RegisterJobAPI
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("professionals/", ProfessionalAPI.as_view()),
+    path("professional/<int:id>/job", RegisterJobAPI.as_view()),
 ]

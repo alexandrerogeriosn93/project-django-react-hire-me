@@ -1,8 +1,12 @@
-from django.shortcuts import render
-from myjob.models import Professional
-from myjob.serializer import ProfessionalSerializer
+from django.shortcuts import get_object_or_404, render
+from myjob.models import Job, Professional
+from myjob.serializer import (
+    JobSerializer,
+    ProfessionalSerializer,
+    RegisterJobSerializer,
+)
 from rest_framework.views import APIView, Response
-from rest_framework.status import HTTP_200_OK
+from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 
 
 class ProfessionalAPI(APIView):
@@ -10,3 +14,28 @@ class ProfessionalAPI(APIView):
         professionals = Professional.objects.all()
         serializer = ProfessionalSerializer(professionals, many=True)
         return Response(serializer.data, status=HTTP_200_OK)
+
+
+class RegisterJobAPI(APIView):
+    def post(self, request, id, format=None):
+        professional = get_object_or_404(Professional, id=id)
+        seralizer = RegisterJobSerializer(data=request.data)
+
+        # if seralizer.is_valid():
+        #     job = Job(
+        #         name=seralizer.validate_data.get("name"),
+        #         email=seralizer.validate_data.get("email"),
+        #     )
+
+        if not seralizer.is_valid():
+            return Response(seralizer.errors, status=HTTP_400_BAD_REQUEST)
+
+        job = Job(
+            name=seralizer.validated_data.get("name"),
+            email=seralizer.validated_data.get("email"),
+            professional=professional,
+        )
+        job.save()
+        job_serializer = JobSerializer(job, many=False)
+
+        return Response(job_serializer.data, status=HTTP_201_CREATED)
