@@ -19,14 +19,14 @@ class ProfessionalAPI(APIView):
 class RegisterJobAPI(APIView):
     def post(self, request, id, format=None):
         professional = get_object_or_404(Professional, id=id)
-        seralizer = RegisterJobSerializer(data=request.data)
+        serializer = RegisterJobSerializer(data=request.data)
 
-        if not seralizer.is_valid():
-            return Response(seralizer.errors, status=HTTP_400_BAD_REQUEST)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
         job = Job(
-            name=seralizer.validated_data.get("name"),
-            email=seralizer.validated_data.get("email"),
+            name=serializer.validated_data.get("name"),
+            email=serializer.validated_data.get("email"),
             professional=professional,
         )
         job.save()
