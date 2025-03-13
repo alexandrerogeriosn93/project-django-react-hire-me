@@ -26,6 +26,7 @@ const theme = createTheme({
           paddingBottom: "12px",
           ":hover": {
             backgroundColor: "#2596be",
+            cursor: "pointer",
           },
         },
       },
