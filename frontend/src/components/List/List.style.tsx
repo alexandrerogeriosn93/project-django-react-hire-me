@@ -27,7 +27,7 @@ export const Photo = styled("img")`
 `;
 
 export const Name = styled("h3")`
-  margin: ${({ theme }) => theme.spacing(2, 0, 0, 0)};
+  margin: ${({ theme }) => theme.spacing(2, 0, 2, 0)};
 `;
 
 export const Value = styled("p")`
@@ -38,6 +38,7 @@ export const Value = styled("p")`
 
 export const Description = styled("p")`
   word-break: break-word;
+  margin: 20px 0px 20px 0px;
 `;
 
 export const EmptyList = styled("h2")`

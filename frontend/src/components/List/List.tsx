@@ -9,6 +9,7 @@ import {
   Photo,
   Value,
 } from "./List.style";
+import { Button } from "@mui/material";
 
 interface PropsList {
   professionals: Professional[];
@@ -33,6 +34,7 @@ export const List = (props: PropsList) => {
                   por hora
                 </Value>
                 <Description>{professional.description}</Description>
+                <Button>Contratar Profissional</Button>
               </Informations>
             </ListItem>
           ))}
