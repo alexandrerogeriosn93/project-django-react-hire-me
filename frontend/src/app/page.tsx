@@ -13,7 +13,7 @@ import { List } from "@/components/List/List";
 import { useIndex } from "@/hooks/pages/useIndex";
 
 export default function Home({ children }: { children: React.ReactNode }) {
-  const { listProfessionals } = useIndex();
+  const { listProfessionals, name, setName, email, setEmail } = useIndex();
 
   return (
     <ThemeProvider theme={theme}>
@@ -26,10 +26,22 @@ export default function Home({ children }: { children: React.ReactNode }) {
         >
           <Grid2 container spacing={2}>
             <Grid2 size={12} component={"div"}>
-              <TextField label="Digite o nome" type="text" fullWidth />
+              <TextField
+                label="Digite o nome"
+                type="text"
+                fullWidth
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+              />
             </Grid2>
             <Grid2 size={12} component={"div"}>
-              <TextField label="Digite o e-mail" type="email" fullWidth />
+              <TextField
+                label="Digite o e-mail"
+                type="email"
+                fullWidth
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+              />
             </Grid2>
           </Grid2>
           <DialogActions sx={{ mt: 5 }}>
