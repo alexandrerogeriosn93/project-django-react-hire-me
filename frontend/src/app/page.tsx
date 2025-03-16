@@ -31,9 +31,10 @@ export default function Home({ children }: { children: React.ReactNode }) {
           onSelect={(professional) => setProfessionalSelected(professional)}
         ></List>
         <Dialog
-          open={true}
+          open={professionalSelected !== null}
           fullWidth
           slotProps={{ paper: { sx: { padding: 6 } } }}
+          onClose={() => setProfessionalSelected(null)}
         >
           <Grid2 container spacing={2}>
             <Grid2 size={12} component={"div"}>
@@ -56,7 +57,9 @@ export default function Home({ children }: { children: React.ReactNode }) {
             </Grid2>
           </Grid2>
           <DialogActions sx={{ mt: 5 }}>
-            <Button>Cancelar</Button>
+            <Button onClick={() => setProfessionalSelected(null)}>
+              Cancelar
+            </Button>
             <Button>Marcar trabalho</Button>
           </DialogActions>
         </Dialog>

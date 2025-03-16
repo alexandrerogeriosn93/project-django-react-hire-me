@@ -17,6 +17,15 @@ export function useIndex() {
     );
   }, []);
 
+  useEffect(() => {
+    clearForm();
+  }, [professionalSelected]);
+
+  function clearForm() {
+    setName("");
+    setEmail("");
+  }
+
   return {
     listProfessionals,
     name,
