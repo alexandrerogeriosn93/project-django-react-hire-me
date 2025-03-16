@@ -26,6 +26,34 @@ export function useIndex() {
     setEmail("");
   }
 
+  function validateData() {
+    return name.length > 0 && email.length > 0;
+  }
+
+  function registerJob() {
+    if (!professionalSelected) {
+      alert("Profissional inválido.");
+      return;
+    }
+
+    if (!validateData()) {
+      alert("Preencha todos os campos.");
+      return;
+    }
+
+    ApiService.post(`professional/${professionalSelected.id}/job`, {
+      name,
+      email,
+    })
+      .then(() => {
+        setProfessionalSelected(null);
+        alert("Cadastrado com sucesso.");
+      })
+      .catch((error) => {
+        alert(error.response?.data.message);
+      });
+  }
+
   return {
     listProfessionals,
     name,
@@ -34,5 +62,6 @@ export function useIndex() {
     setEmail,
     professionalSelected,
     setProfessionalSelected,
+    registerJob,
   };
 }

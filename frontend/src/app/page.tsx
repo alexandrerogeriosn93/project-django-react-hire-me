@@ -21,6 +21,7 @@ export default function Home({ children }: { children: React.ReactNode }) {
     setEmail,
     professionalSelected,
     setProfessionalSelected,
+    registerJob,
   } = useIndex();
 
   return (
@@ -60,7 +61,7 @@ export default function Home({ children }: { children: React.ReactNode }) {
             <Button onClick={() => setProfessionalSelected(null)}>
               Cancelar
             </Button>
-            <Button>Marcar trabalho</Button>
+            <Button onClick={() => registerJob()}>Marcar trabalho</Button>
           </DialogActions>
         </Dialog>
         {children}
