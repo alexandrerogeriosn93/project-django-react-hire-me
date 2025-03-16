@@ -8,6 +8,8 @@ export function useIndex() {
   );
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [professionalSelected, setProfessionalSelected] =
+    useState<Professional | null>(null);
 
   useEffect(() => {
     ApiService.get("/professionals").then((response) =>
@@ -15,5 +17,13 @@ export function useIndex() {
     );
   }, []);
 
-  return { listProfessionals, name, setName, email, setEmail };
+  return {
+    listProfessionals,
+    name,
+    setName,
+    email,
+    setEmail,
+    professionalSelected,
+    setProfessionalSelected,
+  };
 }

@@ -13,12 +13,23 @@ import { List } from "@/components/List/List";
 import { useIndex } from "@/hooks/pages/useIndex";
 
 export default function Home({ children }: { children: React.ReactNode }) {
-  const { listProfessionals, name, setName, email, setEmail } = useIndex();
+  const {
+    listProfessionals,
+    name,
+    setName,
+    email,
+    setEmail,
+    professionalSelected,
+    setProfessionalSelected,
+  } = useIndex();
 
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <List professionals={listProfessionals}></List>
+        <List
+          professionals={listProfessionals}
+          onSelect={(professional) => setProfessionalSelected(professional)}
+        ></List>
         <Dialog
           open={true}
           fullWidth
