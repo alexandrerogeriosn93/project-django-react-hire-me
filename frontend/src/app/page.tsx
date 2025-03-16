@@ -5,6 +5,7 @@ import {
   Dialog,
   DialogActions,
   Grid2,
+  Snackbar,
   TextField,
   ThemeProvider,
 } from "@mui/material";
@@ -22,6 +23,8 @@ export default function Home({ children }: { children: React.ReactNode }) {
     professionalSelected,
     setProfessionalSelected,
     registerJob,
+    message,
+    setMessage,
   } = useIndex();
 
   return (
@@ -64,6 +67,12 @@ export default function Home({ children }: { children: React.ReactNode }) {
             <Button onClick={() => registerJob()}>Marcar trabalho</Button>
           </DialogActions>
         </Dialog>
+        <Snackbar
+          message={message}
+          open={message.length > 0}
+          autoHideDuration={2500}
+          onClose={() => setMessage("")}
+        />
         {children}
       </div>
     </ThemeProvider>

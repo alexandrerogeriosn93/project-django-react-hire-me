@@ -10,6 +10,7 @@ export function useIndex() {
   const [email, setEmail] = useState("");
   const [professionalSelected, setProfessionalSelected] =
     useState<Professional | null>(null);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     ApiService.get("/professionals").then((response) =>
@@ -32,12 +33,12 @@ export function useIndex() {
 
   function registerJob() {
     if (!professionalSelected) {
-      alert("Profissional inválido.");
+      setMessage("Profissional inválido.");
       return;
     }
 
     if (!validateData()) {
-      alert("Preencha todos os campos.");
+      setMessage("Preencha todos os campos.");
       return;
     }
 
@@ -47,10 +48,10 @@ export function useIndex() {
     })
       .then(() => {
         setProfessionalSelected(null);
-        alert("Cadastrado com sucesso.");
+        setMessage("Cadastrado com sucesso.");
       })
       .catch((error) => {
-        alert(error.response?.data.message);
+        setMessage(error.response?.data.message);
       });
   }
 
@@ -63,5 +64,7 @@ export function useIndex() {
     professionalSelected,
     setProfessionalSelected,
     registerJob,
+    message,
+    setMessage,
   };
 }
