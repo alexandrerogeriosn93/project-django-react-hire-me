@@ -1,37 +1,70 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Professional } from "@/entities/professional";
+import { ApiService } from "@/services/ApiService";
 
 export function useIndex() {
-  const [listProfessionals, setListProfessionals] = useState<Professional[]>([
-    {
-      id: 1,
-      name: "Alexandre Rogério",
-      description: "Tecnólogo em Sistemas para Internet",
-      value_per_hour: 100,
-      photo: "https://github.com/alexandrerogeriosn93.png",
-    },
-    {
-      id: 2,
-      name: "Django",
-      description: "Tecnologia para o desenvolvimento backend",
-      value_per_hour: 300,
-      photo: "https://github.com/django.png",
-    },
-    {
-      id: 3,
-      name: "React",
-      description: "Tecnologia para o desenvolvimento frontend",
-      value_per_hour: 500,
-      photo: "https://github.com/react.png",
-    },
-    {
-      id: 4,
-      name: "Python",
-      description: "Linguagem de programação",
-      value_per_hour: 120,
-      photo: "https://github.com/python.png",
-    },
-  ]);
+  const [listProfessionals, setListProfessionals] = useState<Professional[]>(
+    []
+  );
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [professionalSelected, setProfessionalSelected] =
+    useState<Professional | null>(null);
+  const [message, setMessage] = useState("");
 
-  return { listProfessionals };
+  useEffect(() => {
+    ApiService.get("/professionals").then((response) =>
+      setListProfessionals(response.data)
+    );
+  }, []);
+
+  useEffect(() => {
+    clearForm();
+  }, [professionalSelected]);
+
+  function clearForm() {
+    setName("");
+    setEmail("");
+  }
+
+  function validateData() {
+    return name.length > 0 && email.length > 0;
+  }
+
+  function registerJob() {
+    if (!professionalSelected) {
+      setMessage("Profissional inválido.");
+      return;
+    }
+
+    if (!validateData()) {
+      setMessage("Preencha todos os campos.");
+      return;
+    }
+
+    ApiService.post(`professional/${professionalSelected.id}/job`, {
+      name,
+      email,
+    })
+      .then(() => {
+        setProfessionalSelected(null);
+        setMessage("Cadastrado com sucesso.");
+      })
+      .catch((error) => {
+        setMessage(error.response?.data.message);
+      });
+  }
+
+  return {
+    listProfessionals,
+    name,
+    setName,
+    email,
+    setEmail,
+    professionalSelected,
+    setProfessionalSelected,
+    registerJob,
+    message,
+    setMessage,
+  };
 }

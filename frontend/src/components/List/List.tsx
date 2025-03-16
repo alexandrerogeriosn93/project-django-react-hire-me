@@ -13,6 +13,7 @@ import { Button } from "@mui/material";
 
 interface PropsList {
   professionals: Professional[];
+  onSelect: (professional: Professional) => void;
 }
 
 export const List = (props: PropsList) => {
@@ -34,7 +35,9 @@ export const List = (props: PropsList) => {
                   por hora
                 </Value>
                 <Description>{professional.description}</Description>
-                <Button>Contratar Profissional</Button>
+                <Button onClick={() => props.onSelect(professional)}>
+                  Contratar Profissional
+                </Button>
               </Informations>
             </ListItem>
           ))}

@@ -1,18 +1,80 @@
 "use client";
 
-import { ThemeProvider } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  Grid2,
+  Snackbar,
+  TextField,
+  ThemeProvider,
+} from "@mui/material";
 import theme from "@/themes/theme";
 import { List } from "@/components/List/List";
-import { Professional } from "@/entities/professional";
 import { useIndex } from "@/hooks/pages/useIndex";
 
 export default function Home({ children }: { children: React.ReactNode }) {
-  const { listProfessionals } = useIndex();
+  const {
+    listProfessionals,
+    name,
+    setName,
+    email,
+    setEmail,
+    professionalSelected,
+    setProfessionalSelected,
+    registerJob,
+    message,
+    setMessage,
+  } = useIndex();
 
   return (
     <ThemeProvider theme={theme}>
-      <List professionals={listProfessionals}></List>
-      {children}
+      <div>
+        <List
+          professionals={listProfessionals}
+          onSelect={(professional) => setProfessionalSelected(professional)}
+        ></List>
+        <Dialog
+          open={professionalSelected !== null}
+          fullWidth
+          slotProps={{ paper: { sx: { padding: 6 } } }}
+          onClose={() => setProfessionalSelected(null)}
+        >
+          <Grid2 container spacing={2}>
+            <Grid2 size={12} component={"div"}>
+              <TextField
+                label="Digite o nome"
+                type="text"
+                fullWidth
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+              />
+            </Grid2>
+            <Grid2 size={12} component={"div"}>
+              <TextField
+                label="Digite o e-mail"
+                type="email"
+                fullWidth
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+              />
+            </Grid2>
+          </Grid2>
+          <DialogActions sx={{ mt: 5 }}>
+            <Button onClick={() => setProfessionalSelected(null)}>
+              Cancelar
+            </Button>
+            <Button onClick={() => registerJob()}>Marcar trabalho</Button>
+          </DialogActions>
+        </Dialog>
+        <Snackbar
+          message={message}
+          open={message.length > 0}
+          autoHideDuration={2500}
+          onClose={() => setMessage("")}
+        />
+        {children}
+      </div>
     </ThemeProvider>
   );
 }
